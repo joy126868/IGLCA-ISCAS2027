@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+weights/
+results/*
+!results/training/
+datasets/
+datasets_rf/
+LOLV2/
+LOL_v1/
+third_party/Retinexformer/
+third_party/Retinexformer_iscas/
+*.pth
+*.safetensors

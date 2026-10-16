@@ -1,0 +1,15 @@
+Dataset: lolv2_real
+Mode: ablation_lca_none_official_s42
+FIXED_SEED: 42
+FORCE_NEPOCHS: 1000
+FORCE_SNAPSHOTS: 5
+Architecture: net.CIDNet_LCA_NONE_BASELINE.CIDNet
+Ablation: LCA1-LCA6 original author LCA; IG-LCA disabled
+C-block: disabled. No HFSR-Safe, no HVI-GBC.
+Loss: author RGB/HVI loss only; no aux losses/no GT-mean eval
+PRETRAIN_PATH: 
+Best epoch: 420
+Best checkpoint: ./weights\lolv2_real_ablation_lca_none_official_s42\PSNR_23.9004_SSIM_0.8627_LPIPS_0.1269_bestweight.pth
+===> Avg.PSNR: 23.9004 dB
+===> Avg.SSIM: 0.8627
+===> Avg.LPIPS: 0.1269

@@ -1,0 +1,17 @@
+{
+ "plain": {
+  "psnr": 23.904513994348623,
+  "ssim": 0.8656125483576648,
+  "lpips": 0.12189608996734023
+ },
+ "gtmean": {
+  "psnr": 27.974857330826282,
+  "ssim": 0.8828678776472413,
+  "lpips": 0.11543058890849352
+ },
+ "_meta": {
+  "weights": "released_weights/HVI-CIDNet-LOLv2-real-bestPSNR/model.safetensors",
+  "dataset": "lolv2_real",
+  "alpha": 0.8
+ }
+}
