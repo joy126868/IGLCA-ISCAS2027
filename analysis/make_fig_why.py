@@ -59,7 +59,7 @@ def main():
     out = sys.argv[1]
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     fig, axs = plt.subplots(2, 2, figsize=(3.45, 2.6))
-    fig.subplots_adjust(left=0.115, right=0.985, top=0.88, bottom=0.108, wspace=0.36, hspace=0.98)
+    fig.subplots_adjust(left=0.145, right=0.985, top=0.88, bottom=0.108, wspace=0.40, hspace=0.98)
 
     # (a) H1: information absent?
     ax = axs[0, 0]
@@ -116,7 +116,8 @@ def main():
     ax.set_xticks(range(3))
     ax.set_xticklabels(SEEDS)
     ax.set_xlabel("seed", labelpad=1)
-    ax.set_ylabel("GT-mean change (dB)", labelpad=1)
+    # two lines: the one-line label ran into the panel letter above the axes
+    ax.set_ylabel("GT-mean\nchange (dB)", labelpad=1, linespacing=0.95)
     ax.set_ylim(-0.75, 0.75)
     ax.legend(fontsize=5.0, frameon=False, loc="upper left", handletextpad=0.3, borderaxespad=0.1, labelspacing=0.15,
               handlelength=1.0)
@@ -142,7 +143,8 @@ def main():
     ax.set_xticks(range(3))
     ax.set_xticklabels(SEEDS)
     ax.set_xlabel("seed", labelpad=1)
-    ax.set_ylabel("GT-mean change (dB)", labelpad=1)
+    # two lines: the one-line label ran into the panel letter above the axes
+    ax.set_ylabel("GT-mean\nchange (dB)", labelpad=1, linespacing=0.95)
     ax.set_ylim(-0.75, 0.75)
     ax.legend(fontsize=4.9, frameon=False, loc="upper left", handletextpad=0.3, borderaxespad=0.1, labelspacing=0.12,
               handlelength=1.0, ncol=2, columnspacing=0.6)

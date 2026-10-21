@@ -135,23 +135,36 @@ dot(234, YI, 5)
 line([(243, YH), (xs[0], YH)])
 text(246, YH - 19, 32, 16, "HVI", fs=15)
 # LCA modules between the branches
-labels = ["LCA1", "LCA2<sup>†</sup>", "IG-<br>LCA3", "IG-<br>LCA4", "IG-<br>LCA5", "IG-<br>LCA6"]
+labels = ["LCA1", "LCA2", "IG-<br>LCA3", "IG-<br>LCA4", "IG-<br>LCA5", "IG-<br>LCA6"]
+PW, PH = 54, 36
 for k in range(1, 7):
     ig = k >= 3
-    pw, ph = 54, 36
-    box(cx[k] - pw / 2, YM - ph / 2, pw, ph, labels[k - 1], fill=GREEN if ig else GRAY, stroke=GREEN_S if ig else GRAY_S,
+    box(cx[k] - PW / 2, YM - PH / 2, PW, PH, labels[k - 1], fill=GREEN if ig else GRAY, stroke=GREEN_S if ig else GRAY_S,
         fs=15, bold=True, arc=25, color="#000000" if ig else "#333333")
     top_i = YI + H[k] / 2
-    if k == 5:  # the I-branch LCA5 output is overwritten in the forward pass
-        line([(cx[k], YM - 18), (cx[k], top_i + 2)], dashed=True, end="cross")
+    if k == 2:
+        # LCA2 reads the block-2 features of both branches, but its outputs go only to the skip connections
+        # (the next encoder stage reads the block-2 output): arrows point INTO LCA2, the skips start at LCA2
+        line([(cx[k], top_i), (cx[k], YM - PH / 2)])
+        line([(cx[k], YH - H[k] / 2), (cx[k], YM + PH / 2)])
+    elif k == 5:
+        # the I-branch LCA5 output is overwritten in the forward pass: LCA5 only reads the I-branch feature
+        # (arrow INTO LCA5) and only updates the HV branch
+        line([(cx[k], top_i), (cx[k], YM - PH / 2)])
+        line([(cx[k], YM + PH / 2), (cx[k], YH - H[k] / 2)])
     else:
-        line([(cx[k], YM - 18), (cx[k], top_i)])
-    line([(cx[k], YM + 18), (cx[k], YH - H[k] / 2)])
-# skip connections (purple): Conv -> last Up, LCA1 -> Up before LCA6, LCA2 -> Up before LCA5
-for (a, b, lev) in ((0, 7, 48), (1, 6, 59), (2, 5, 70)):
+        line([(cx[k], YM - PH / 2), (cx[k], top_i)])
+        line([(cx[k], YM + PH / 2), (cx[k], YH - H[k] / 2)])
+# skip connections (purple): Conv -> last Up, LCA1 -> Up before LCA6, LCA2 output -> Up before LCA5
+for (a, b, lev) in ((0, 7, 48), (1, 6, 59)):
     line([(cx[a], YI - H[a] / 2), (cx[a], lev), (cx[b] - 4, lev), (cx[b] - 4, YI - H[b] / 2)], color=PURPLE, w=1.3)
     lv = YH + (YI - lev)  # mirrored below the HV row
     line([(cx[a], YH + H[a] / 2), (cx[a], lv), (cx[b] - 4, lv), (cx[b] - 4, YH + H[b] / 2)], color=PURPLE, w=1.3)
+xs2 = cx[2] + 19  # the LCA2 skips leave the side of the LCA2 box, beside the block-2 features
+lev = 70
+line([(xs2, YM - PH / 2), (xs2, lev), (cx[5] - 4, lev), (cx[5] - 4, YI - H[5] / 2)], color=PURPLE, w=1.3, jump=True)
+lv = YH + (YI - lev)
+line([(xs2, YM + PH / 2), (xs2, lv), (cx[5] - 4, lv), (cx[5] - 4, YH + H[5] / 2)], color=PURPLE, w=1.3, jump=True)
 # output head: concat(HV, I) + input HVI -> PHVIT -> output
 xe = xs[7] + W
 cat = circle(xe + 36, YM, 20, "C", fs=13)
